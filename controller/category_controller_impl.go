@@ -1,12 +1,13 @@
 package controller
 
 import (
-	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"programmerzamannow/belajar-golang-restful-api/helper"
 	"programmerzamannow/belajar-golang-restful-api/model/web"
 	"programmerzamannow/belajar-golang-restful-api/service"
 	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 type CategoryControllerImpl struct {
@@ -84,6 +85,8 @@ func (controller *CategoryControllerImpl) FindById(writer http.ResponseWriter, r
 
 func (controller *CategoryControllerImpl) FindAll(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	categoryResponses := controller.CategoryService.FindAll(request.Context())
+	helper.WriteToResponseBody(writer, categoryResponses)
+
 	webResponse := web.WebResponse{
 		Code:   200,
 		Status: "OK",
